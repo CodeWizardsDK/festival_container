@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const User = require("../models/user");
+const user_1 = require("../models/user");
 class UserRouter {
     /**
      * Initialize the UserRouter
@@ -14,7 +14,7 @@ class UserRouter {
      * GET all Useres.
      */
     create(req, res, next) {
-        const newUser = new User(req.body);
+        const newUser = new user_1.User(req.body);
         newUser.save((err) => {
             if (err) {
                 res.json({ info: "error during User create", error: err });
@@ -23,7 +23,7 @@ class UserRouter {
         });
     }
     getAll(req, res, next) {
-        User.find((err, Users) => {
+        user_1.User.find((err, Users) => {
             if (err) {
                 res.json({ info: "error during find Users", error: err });
             }
@@ -31,7 +31,7 @@ class UserRouter {
         });
     }
     get(req, res, next) {
-        User.findById(req.params.id, function (err, User) {
+        user_1.User.findById(req.params.id, function (err, User) {
             if (err) {
                 res.json({ info: "error during find User", error: err });
             }

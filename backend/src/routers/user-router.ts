@@ -1,6 +1,6 @@
 import {Router, Request, Response, NextFunction} from "express";
 
-import * as User from "../models/user";
+import {User, IUserModel} from "../models/user";
 
 export class UserRouter {
   router: Router;
@@ -36,7 +36,7 @@ export class UserRouter {
   }
 
   public get(req: Request, res: Response, next: NextFunction): void {
-    User.findById(req.params.id, function(err: any, User) {
+    User.findById(req.params.id, function(err: any, User: IUserModel): void {
         if (err) {
             res.json({info: "error during find User", error: err});
         }
