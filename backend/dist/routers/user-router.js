@@ -2,11 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = require("../models/user");
-class UserRouter {
+const base_router_1 = require("./base-router");
+class UserRouter extends base_router_1.BaseRouter {
     /**
      * Initialize the UserRouter
      */
     constructor() {
+        super();
         this.router = express_1.Router();
         this.init();
     }
@@ -48,9 +50,9 @@ class UserRouter {
      * endpoints.
      */
     init() {
-        this.router.get("/", this.getAll);
-        this.router.post("/", this.create);
-        this.router.get("/:id", this.get);
+        this.router.get("/", this.requireAuth, this.getAll);
+        this.router.post("/", this.requireAuth, this.create);
+        this.router.get("/:id", this.requireAuth, this.get);
     }
 }
 exports.UserRouter = UserRouter;

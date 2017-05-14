@@ -5,6 +5,7 @@ const logger = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const user_router_1 = require("./routers/user-router");
+const auth_router_1 = require("./routers/auth-router");
 // creates and configures an ExpressJS web server.
 class App {
     // run configuration methods on the Express instance.
@@ -33,6 +34,7 @@ class App {
             });
         });
         this.express.use("/", router);
+        this.express.use("/api/v1/auth", auth_router_1.default);
         this.express.use("/api/v1/users", user_router_1.default);
     }
 }

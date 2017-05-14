@@ -1,14 +1,16 @@
 import {Router, Request, Response, NextFunction} from "express";
 
 import {User, IUserModel} from "../models/user";
+import { BaseRouter } from "./base-router";
 
-export class UserRouter {
+export class UserRouter extends BaseRouter {
   router: Router;
 
   /**
    * Initialize the UserRouter
    */
   constructor() {
+    super();
     this.router = Router();
     this.init();
   }
@@ -53,9 +55,9 @@ export class UserRouter {
    * endpoints.
    */
   init(): void {
-    this.router.get("/", this.getAll);
-    this.router.post("/", this.create);
-    this.router.get("/:id", this.get);
+    this.router.get("/", this.requireAuth, this.getAll);
+    this.router.post("/", this.requireAuth, this.create);
+    this.router.get("/:id", this.requireAuth, this.get);
   }
 
 }

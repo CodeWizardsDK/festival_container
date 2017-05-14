@@ -5,13 +5,14 @@ import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 
 import UserRouter from "./routers/user-router";
+import AuthRouter from "./routers/auth-router";
+
 
 // creates and configures an ExpressJS web server.
 class App {
 
   // ref to Express instance
   public express: express.Application;
-
   // run configuration methods on the Express instance.
   constructor() {
     this.express = express();
@@ -40,6 +41,7 @@ class App {
       });
     });
     this.express.use("/", router);
+    this.express.use("/api/v1/auth", AuthRouter);
     this.express.use("/api/v1/users", UserRouter);
   }
 
