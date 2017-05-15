@@ -4,8 +4,10 @@ import * as logger from "morgan";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
 
-import UserRouter from "./routers/user-router";
 import AuthRouter from "./routers/auth-router";
+import UserRouter from "./routers/user-router";
+import ItemRouter from "./routers/item-router";
+import ContainerRouter from "./routers/container-router";
 
 
 // creates and configures an ExpressJS web server.
@@ -43,6 +45,8 @@ class App {
     this.express.use("/", router);
     this.express.use("/api/v1/auth", AuthRouter);
     this.express.use("/api/v1/users", UserRouter);
+    this.express.use("/api/v1/items", ItemRouter);
+    this.express.use("/api/v1/containers", ContainerRouter);
   }
 
 }

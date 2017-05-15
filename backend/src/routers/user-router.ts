@@ -4,20 +4,6 @@ import {User, IUserModel} from "../models/user";
 import { BaseRouter } from "./base-router";
 
 export class UserRouter extends BaseRouter {
-  router: Router;
-
-  /**
-   * Initialize the UserRouter
-   */
-  constructor() {
-    super();
-    this.router = Router();
-    this.init();
-  }
-
-  /**
-   * GET all Useres.
-   */
   public create(req: Request, res: Response, next: NextFunction) {
     const newUser: any = new User(req.body);
     newUser.save((err)=> {
@@ -50,10 +36,6 @@ export class UserRouter extends BaseRouter {
     });
   }
 
-  /**
-   * Take each handler, and attach to one of the Express.Router"s
-   * endpoints.
-   */
   init(): void {
     this.router.get("/", this.requireAuth, this.getAll);
     this.router.post("/", this.requireAuth, this.create);
@@ -62,8 +44,6 @@ export class UserRouter extends BaseRouter {
 
 }
 
-// create the UserRouter, and export its configured Express.Router
 const userRoutes: UserRouter = new UserRouter();
-userRoutes.init();
 
 export default userRoutes.router;

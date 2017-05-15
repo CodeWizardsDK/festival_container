@@ -3,9 +3,10 @@ import * as crypto from "crypto";
 import * as mongoose from "mongoose";
 
 interface IUser {
-    first_name: string;
-    last_name: string;
+    firstName: string;
+    lastName: string;
     email: string;
+    tagId: string;
     password: string;
 }
 
@@ -13,10 +14,11 @@ export interface IUserModel extends IUser, mongoose.Document {
     comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void;
 }
 const userSchema: mongoose.Schema = new mongoose.Schema({
-    first_name: {type: String, required: true},
-    last_name: {type: String, required: true},
+    firstName: {type: String, required: true},
+    lastName: {type: String, required: true},
     email: {type: String, required: true, index: { unique: true }},
     password: {type: String, required: true},
+    tagId: String,
 });
 
 userSchema.pre("save", function save(next) {

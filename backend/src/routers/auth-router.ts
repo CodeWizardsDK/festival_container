@@ -9,30 +9,17 @@ function generateToken(user: IUserModel): string {
     expiresIn: 10080 // in seconds
   });
 }
+
 function setUserInfo(user: IUserModel): any {
   return {
     _id: user._id,
-    first_name: user.first_name,
-    last_name: user.last_name,
+    firstName: user.firstName,
+    lastName: user.lastName,
     email: user.email
   };
 }
 
 export class AuthRouter extends BaseRouter {
-  router: Router;
-
-  /**
-   * Initialize the UserRouter
-   */
-  constructor() {
-    super();
-    this.router = Router();
-    this.init();
-  }
-
-  /**
-   * GET all Useres.
-   */
   public login(req: Request, res: Response, next: NextFunction) {
     User.findOne({email: req.body.email}, (err, user: IUserModel) => {
       if (err) {throw err;}
@@ -55,22 +42,14 @@ export class AuthRouter extends BaseRouter {
         });
       }
     });
-
   }
 
-
-  /**
-   * Take each handler, and attach to one of the Express.Router"s
-   * endpoints.
-   */
   init(): void {
     this.router.post("/", this.requireLogin, this.login);
   }
 
 }
 
-// create the UserRouter, and export its configured Express.Router
 const authRoutes: AuthRouter = new AuthRouter();
-authRoutes.init();
 
 export default authRoutes.router;

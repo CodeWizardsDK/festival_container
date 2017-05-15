@@ -1,20 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
 const user_1 = require("../models/user");
 const base_router_1 = require("./base-router");
 class UserRouter extends base_router_1.BaseRouter {
-    /**
-     * Initialize the UserRouter
-     */
-    constructor() {
-        super();
-        this.router = express_1.Router();
-        this.init();
-    }
-    /**
-     * GET all Useres.
-     */
     create(req, res, next) {
         const newUser = new user_1.User(req.body);
         newUser.save((err) => {
@@ -45,10 +33,6 @@ class UserRouter extends base_router_1.BaseRouter {
             }
         });
     }
-    /**
-     * Take each handler, and attach to one of the Express.Router"s
-     * endpoints.
-     */
     init() {
         this.router.get("/", this.requireAuth, this.getAll);
         this.router.post("/", this.requireAuth, this.create);
@@ -56,7 +40,5 @@ class UserRouter extends base_router_1.BaseRouter {
     }
 }
 exports.UserRouter = UserRouter;
-// create the UserRouter, and export its configured Express.Router
 const userRoutes = new UserRouter();
-userRoutes.init();
 exports.default = userRoutes.router;

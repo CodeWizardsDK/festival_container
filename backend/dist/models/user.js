@@ -3,10 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     email: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
+    tagId: String,
 });
 userSchema.pre("save", function save(next) {
     const user = this;
