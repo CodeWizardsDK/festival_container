@@ -36,12 +36,12 @@ export class ContainerRouter extends BaseRouter {
     });
   }
   public update(req: Request, res: Response, next: NextFunction): void {
-    Container.findOneAndUpdate({_id: req.params.id}, req.body, function(err: any, Container: IContainerModel): void {
+    Container.findOneAndUpdate({_id: req.params.id}, req.body).lean().exec(function(err: any, Container: IContainerModel): void {
         if (err) {
             res.json({info: "error during find Container", error: err});
         }
         if (Container) {
-            res.json({info: "Container updated successfully", data: Container});
+            res.json({info: "Container updated successfully", data: Object.assign({}, Container, req.body)});
         } else {
             res.json({info: "Container not found with id:"+ req.params.id});
         }
